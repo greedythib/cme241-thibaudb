@@ -13,11 +13,11 @@ def is_mp_transitions(transitions) :
 
 def is_mrp_transitions(transitions):
     res = True 
-    states_nb = len(transitions[0])
+    states_nb = len(transitions)
     for k in transitions.keys() : 
         if len(transitions[k][0]) != states_nb : 
             res = False
-        if len(transitions[k][1] != 1) : 
+        if len([transitions[k][1]]) != 1 : 
             res = False 
         prob_sum = 0 
         for state in transitions[k][0] : 
