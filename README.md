@@ -6,9 +6,18 @@ _Each week, I release a new version in order to track the progress of my work._
 
 The _pdf_ files are meant to be a summary of the most important notions studied during lectures. 
 
-* `lecture_1.pdf` sums up  the notions of Markov Chains, Value State Function and Optimal Policies studied during lecture 1. 
+* `lecture_1.pdf` sums up  the notions of Markov Chains, Value State Function and Optimal Policies studied during lecture 1.
+* `lecture_3.pdf` sums up the most important notions from the Utility Theory lecture and the main results of the Portfolio application problems for CARA and CRRA utility functions. 
 
 ## Type of data 
+
+Discrete Markov chains are stored as Python `dict`. 
+
+* MP : 
+
+\begin{center}
+sdf
+\end{center}
 
 ## `./processes` folder
 
