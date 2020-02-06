@@ -1,12 +1,12 @@
 # README file for CME 241 (Winter quarter 2020)
 
-_Each week, I release a version in order to track the progress of my work._
+_Each week, I release a new version in order to track the progress of my work._
 
 ## Lectures
 
-The _pdf_ files are meant to be a summary of the most important notions studied in lectures. 
+The _pdf_ files are meant to be a summary of the most important notions studied during lectures. 
 
-* `lecture_1.pdf` sums up  the notions of Markov Chains, Value State Function and Optimal Policies studient during lecture 1. 
+* `lecture_1.pdf` sums up  the notions of Markov Chains, Value State Function and Optimal Policies studied during lecture 1. 
 
 ## Type of data 
 
