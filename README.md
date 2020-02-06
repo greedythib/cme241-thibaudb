@@ -1,5 +1,7 @@
 # README file for CME 241 (Winter quarter 2020)
 
+_Each week, I release a version in order to track the progress of my work._
+
 ## Lectures
 
 The _pdf_ files are meant to be a summary of the most important notions studied in lectures. 
