@@ -19,15 +19,15 @@ Let us run :
 
 Then the output is : 
 
-`· states list :  {1: {2: 0.25, 3: 0.75}, 2: {2: 1}, 3: {2: 0.45, 3: 0.55}} 
-· number of states :  3 
-· sink states :  {2}
-·  matrix transition :  
- [[0.   0.25 0.75]
- [0.   1.   0.  ]
- [0.   0.45 0.55]]
-{1: 0.0, 2: 1.0, 3: 0.0}
-stationary :  {1: 0.5333333333333333, 2: 0.4666666666666667}`
+`· states list :  {1: {2: 0.25, 3: 0.75}, 2: {2: 1}, 3: {2: 0.45, 3: 0.55}}`
+`· number of states :  3` 
+`· sink states :  {2}`
+`·  matrix transition :`
+`[[0.   0.25 0.75]`
+`[0.   1.   0.  ]`
+`[0.   0.45 0.55]]`
+`{1: 0.0, 2: 1.0, 3: 0.0}`
+`stationary :  {1: 0.5333333333333333, 2: 0.4666666666666667}`
 
 
 This folder also contains a Python file `policy.py` for a Policy implementation. This class is used in the class `_MDP_`. 
