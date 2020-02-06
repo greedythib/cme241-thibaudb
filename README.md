@@ -11,13 +11,14 @@ The _pdf_ files are meant to be a summary of the most important notions studied 
 
 ## Type of data 
 
-Discrete Markov chains are stored as Python `dict`. 
+Discrete Markov chains are stored as Python `dict`. Let us give some examples : 
 
 * MP : 
 
-\begin{center}
-sdf
-\end{center}
+{ 1 : {2:0.25,3:0.75},
+  2 : {2:1},
+  3 : {2:0.45,3:0.55}
+ }
 
 ## `./processes` folder
 
