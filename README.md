@@ -11,7 +11,7 @@ The _pdf_ files are meant to be a summary of the most important notions studied 
 
 ## Type of data 
 
-Discrete Markov chains are stored as Python `dict`. Let us give some examples : 
+Discrete Markov chains are implemented as Python `class`. The data that feed these objects are stored as `dict`. Let us give some examples : 
 
 * MP : 
 ```math
@@ -66,7 +66,7 @@ This folder contains Python files for the implementation of Markov Processes, Ma
 
 ### Usage 
 
-Let us run : 
+* In order to illustrate the methods and attributes of a `MP` object, let us run : 
 `python3 mp.py`
 
 Then the output is : 
@@ -82,7 +82,7 @@ Then the output is :
 `stationary :  {1: 0.5333333333333333, 2: 0.4666666666666667}`
 
 
-This folder also contains a Python file `policy.py` for a Policy implementation. This class is used in the class `_MDP_`. 
+This folder contains a Python file `policy.py` for a Policy implementation. This class is used in the class `_MDP_`. It also contains a file `det_policy.py` used in policy improvement method (method in `MDP` objects). 
 
 
 ## `./algorithms` folder
