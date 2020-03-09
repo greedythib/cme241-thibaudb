@@ -1,5 +1,5 @@
-# class for MDP
-
+""" Interface for Markov Decision Processes.
+"""
 from mp import MP
 from mp_funcs import get_actions_for_states, mdp_rep_to_mrp_rep1, mdp_rep_to_mrp_rep2, sum_dicts
 from mrp import MRP
@@ -7,16 +7,26 @@ from policy import Policy
 from det_policy import DetPolicy
 # from utils.functions import zip_dict_of_tuple 
 
-# Should be in another Python file yet I have some issues with it so this is still in progress. 
-def zip_dict_of_tuple(d) : 
+""" Helper functions.
+"""
+def zip_dict_of_tuple(d) :
+    """ Helper function for MDP class methods and attributes.
+    """
     d1 = {k:v1 for k,(v1,_) in d.items()}
     d2 = {k:v2 for k,(_,v2) in d.items()}
     return d1,d2
 
 
-class MDP(MRP) : 
+class MDP(MRP) :
+    """ Derived class of MRP.
+    """
     
     def __init__(self, data, gamma : float) -> None :
+        """ Initialization of a MRP using MP class a parent class.
+        
+            @param    data    dict     Input of shape { state : { action : ({state : prob_transition}, reward) } }
+            @param    gamma   float    Discount factor.
+        """
         
         # Preprocess
         d = {k: zip_dict_of_tuple(v) for k,v in data.items()}
@@ -33,12 +43,15 @@ class MDP(MRP) :
         #MRP.__init__(self, d1, gamma)
         
     def get_sink_states(self) :
+        """ Method to retrieve the sink states.
+        """
         return {k for k, v in self.transitions.items() if
                 all(len(v1) == 1 and k in v1.keys() for _, v1 in v.items())
                 }  
     
     def get_terminal_states(self):
         """
+        Overrides the MP method since the input data is different.
         A terminal state is a sink state (100% probability to going back
         to itself, FOR EACH ACTION) and the rewards on those transitions back
         to itself are zero.
@@ -48,11 +61,15 @@ class MDP(MRP) :
                  all(r==0 for _, r in self.rewards[s].items())}
     
     def get_mrp(self, pol: Policy) -> MRP:
+        """ Method to compute the MRP from the MDP given a Policy.
+        """
         transitions = mdp_rep_to_mrp_rep1(self.transitions, pol.policy_data)
         rewards = mdp_rep_to_mrp_rep2(self.rewards, pol.policy_data)
         return MRP({s: (v, rewards[s]) for s, v in transitions.items()}, self.gamma)
     
     def get_value_func_dict(self, pol: Policy):
+        """ Method to compute the exact State-Value Function of the MRP.
+        """
         mrp_obj = self.get_mrp(pol)
         value_func_vec = mrp_obj.get_state_value_function()
         nt_vf = {mrp_obj.states_list[i]: value_func_vec[i]
@@ -61,16 +78,17 @@ class MDP(MRP) :
         return {**nt_vf, **t_vf}
     
     def get_act_value_func_dict(self, pol: Policy):
+        """ Method to compute the exact Action-Value Function of the MDP.
+        """
         v_dict = self.get_value_func_dict(pol)
         return {s: {a: r + self.gamma * sum(p * v_dict[s1] for s1, p in
                                             self.transitions[s][a].items())
                     for a, r in v.items()}
                     for s, v in self.rewards.items()}
-   
-        
-    # Get Improved Policy : on progress
-    # Get Optimal Policy  : on progress 
 
+
+""" FOR SANITY PURPOSES ONLY.
+"""
 
 if __name__ == '__main__':
    

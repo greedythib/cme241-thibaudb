@@ -1,35 +1,45 @@
+""" Interface for Markov Reward Processes.
+"""
 import mp_funcs as funcs
 import numpy as np
 from mp import MP 
 
-class MRP(MP) : 
+class MRP(MP) :
+    """ Derived class of MP.
+    """
     
-    def __init__(self, transitions, gamma : float) : 
+    def __init__(self, transitions, gamma : float) :
+        """ Initialization of a MRP using MP class a parent class. 
         
-        MP.__init__(self, transitions)
+            @param    transitions    dict     Input of shape { state : ({state : prob_transition}, reward) }
+            @param    gamma          float    Discount factor.
+        """
+        
+        MP.__init__(self, transitions) # inheritance of MP class.
         self.rewards_vec = self.__get_rewards_vec()
         self.gamma = gamma
     
-    def __get_rewards_vec(self) : 
+    def __get_rewards_vec(self) :
+        """ Method to retrieve the rewards per state.
+        """
         return np.array([self.transitions[k][1] for k in self.transitions.keys()])
     
-    def get_state_value_function(self) : # should take care of the singular matrices case
+    def get_state_value_function(self) :
         """
-        This value func vec is only for the non-terminal states
+            Method to compute the exact state value function.
+            The matrix might be singular.
         """
+        try :
         
-        return np.linalg.inv(
-               np.eye(self.states_nb) - self.gamma * self.trans_matrix
-               ).dot(self.rewards_vec)
-                
-    # to do : Create a method to get the stationary distribution of this chain.
-    # to do : Create a method to get the terminal states  : 
-        """
-        A terminal state is a sink state (100% probability to going back
-        to itself, FOR EACH ACTION) and the rewards on those transitions back
-        to itself are zero.
-        """
-    
+            return np.linalg.inv(
+                   np.eye(self.states_nb) - self.gamma * self.trans_matrix
+                   ).dot(self.rewards_vec)
+        except np.linalg.LinAlgError :
+            print("Singular matrix ! Checkout the terminal states ! ")
+        
+            
+""" FOR SANITY CHECKS PURPOSES ONLY.
+"""
 if __name__ == '__main__' : 
     
     # We have a finite set of states. 
@@ -46,13 +56,14 @@ if __name__ == '__main__' :
     
     my_mrp = MRP(data_2, gamma = 1)
 
-    print(" · states list : ", my_mrp.transitions,"\n",
+    print(" · input data : ", my_mrp.transitions,"\n",
           "· number of states : ", my_mrp.states_nb, "\n",
          " · sink states : ", my_mrp.get_sink_states())
     
     print("matrix transition : ","\n", my_mrp.trans_matrix,"\n")
     print("Rewards vector : ","\n", my_mrp.rewards_vec, "\n")
     
-    # print("Value function : ","\n", my_mrp.get_state_value_function(), "\n")
+    print("state value function : ", my_mrp.get_state_value_function())
+    
     
     

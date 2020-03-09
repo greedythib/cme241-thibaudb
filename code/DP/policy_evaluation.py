@@ -4,11 +4,11 @@ import numpy as np
 from base import DP
 
 class Policy_Evaluation(DP) :
-    """ Derived class of DP class to implement Policy_Evaluation algorithm.
+    """ Derived class of DP class to implement Policy Evaluation algorithm.
     """
     
     def get_value_function_estimate(self):
-        """ Policy Iteration using synchronus backups.
+        """ Policy Evaluation using synchronus backups.
             The goal is to estimate the state value function with a given policy.
             This is an iterative algorithm which is vectorized here.
         """
@@ -32,10 +32,36 @@ class Policy_Evaluation(DP) :
             d[state] += v[i]
         
         return d
+    
+    def get_action_value_function(self) :
+        """ Method to get the action value function by using the result of
+            `self.get_value_function_estimate()`.
+            It uses the Bellman Optimality Equation.
+        """
+        
+        v_est = self.get_value_function_estimate()
+        v_est_list = [val for val in v_est.values()]
+#        print(v_star_list)
+        
+        action2idx = dict.fromkeys(self.actions_list, 0)
+        for idx,action in enumerate(self.actions_list) :
+            action2idx[action] = idx
+        
+        # Uses the Bellman Optimality Equation.
+        q_est = {state: {} for state in self.MDP.all_states}
+        for i,state in enumerate(q_est.keys()) :
+            for action in self.mdp_data[state].keys() :
+                j = action2idx[action]
+                Pa_ss = self.get_trans_matrix_on_action(action)
+#                print("Pa_ss = ", Pa_ss)
+                q_est[state][action] = self.reward_matrix[i,j] + self.gamma * np.dot(Pa_ss[i,:],v_est_list)
+                
+        return q_est
+        
         
     def get_optimal_value_function_estimate(self) :
     
-        return "Wrong instance : object is for prediction (value iteration)."
+        return "Wrong instance : object is for prediction (policy evaluation)."
         
             
 if __name__ == "__main__" :
@@ -70,7 +96,8 @@ if __name__ == "__main__" :
     print("a.pi_matrix = ", a.pi_matrix ,"\n")
     print("reward matrix = ", a.reward_matrix, "\n")
     print("mrp trans = ", a.MDP.get_mrp(a.Policy).transitions, "\n")
-    print("v estimate =" , a, "\n")
+    print("v estimate =" , a.get_value_function_estimate(), "\n")
+    print("q estimate =", a.get_action_value_function())
     
     
     

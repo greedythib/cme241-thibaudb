@@ -1,39 +1,109 @@
-""" We want to evaluate a MDP given a policy
+""" CONTROL : We want to estimate the optimal policy given a MDP.
+    Interface for POLICY ITERATION algorithm.
 """
-import numpy as np
-from base import DP
 
-class Policy_Evaluation(DP) :
-    """ Derived class of DP class to implemente Policy_Evaluation algorithm.
+from base import DP
+import numpy as np
+import copy
+from policy_evaluation import Policy_Evaluation
+
+class Policy_Iteration(DP) :
+    """ Derived class of DP class to implemente Policy Iteration algorithm.
+        It uses Iterative Policy Evaluation Algorithm.
     """
     
-    def get_value_function_estimate(self):
-        """ Policy Iteration using synchronus backups.
-            The goal is to estimate the state value function with a given policy.
-            This is an iterative algorithm which is vectorized here.
-        """
-        # v_0 = 0
-        v = np.array([0]*len(self.MDP.all_states))
-        # Expected reward R_pi
-        n = len(self.MDP.all_states) # number of states
-        R_pi = np.zeros((n))
-        for i in range(n) :
-            R_pi[i] = np.dot(self.reward_matrix[i,:], self.pi_matrix[:,i])
-        # transition matrix
-        trans_matrix = self.MDP.get_mrp(self.Policy).trans_matrix
-        # Iterations
-        for i in range(self.max_iter) :
-            vk = v
-            vk1 = R_pi + self.gamma * np.dot(trans_matrix,vk)
-            v = vk1
-        # map v to a dict
-        d = dict.fromkeys(self.MDP.all_states, 0)
-        for i,state in enumerate(d.keys()) :
-            d[state] += v[i]
+    def get_value_function_estimate(self) :
+        return "Wrong instance : object is for control (policy iteration)"
         
-        return d
-        
+    def argmax_v(self, v, state) :
+        """ Helper method to compute the argmax of the state value function with respect
+            to its actions (given a state).
             
+            @param  q       dict
+            @param  state   int
+        """
+        actions_list = list(v[state].keys())
+        arg =actions_list[0]
+        max = v[state][arg]
+        for action in actions_list :
+            if v[state][action] > max :
+                max = q[state][action]
+                arg = action
+        return arg
+      
+      
+    def get_optimal_value_function_estimate(self):
+        """ Policy Iteration using synchronus backups.
+            The goal is to estimate the optimal state value function.
+            
+            Returns the optimal State-Value function, Action-Value function and
+            Optimal policy.
+        """
+        
+        # 1. Initialization
+        ## value function
+        value_function = {state : 0 for state in self.MDP.all_states}
+#        print(value_function)
+        ## random policy
+        policy = {state:{} for state in self.MDP.all_states}
+        for state in self.MDP.all_states :
+            for action in self.mdp_data[state].keys() :
+                policy[state][action] = 0
+        ### I chose to take a deterministic policy by given weight 1 to the first action
+        ### for each state.
+        for state in self.MDP.all_states :
+            for action in list(policy[state].keys())[1] :
+                policy[state][action] = 1
+        print(policy)
+        
+        # 2. Iterations
+        for iter in range(10) :
+            
+            # 2.1 Policy Evaluation with 100 iterations
+            pol_eval = Policy_Evaluation(self.mdp_data, policy, self.gamma, 100)
+            
+#            print("pol_eval.val_func", pol_eval.get_value_function_estimate())
+            value_function = pol_eval.get_value_function_estimate()
+            action_value_function = pol_eval.get_action_value_function()
+#            print("action value =", action_value_function)
+            
+            # 2.2 Policy Improvement
+            policy_stable : bool = True
+            for state in self.MDP.all_states :
+                for action in policy[state].keys() :
+                    if policy[state][action] == 1 :
+                        old_action = action
+                
+                pi_state = self.argmax_v(action_value_function,state)
+                
+                if pi_state != old_action :
+                    policy_stable = False
+                    # In this case we need to update the policy by imporving it greedily.
+                    policy[state][old_action] = 0
+                    policy[state][pi_state] = 1
+                    
+#            # Stop condition
+#            if policy_stable == True :
+#                return value_function, action_value_function
+#            else :
+#                continue
+          
+        res_policy = {state:None for state in self.MDP.all_states}
+        for state in self.MDP.all_states :
+            for action in self.mdp_data[state].keys() :
+                if policy[state][action] == 1 :
+                    res_policy[state] = action
+            
+        return value_function, action_value_function, res_policy
+        
+        
+    def get_optimal_action_value_function(self) :
+        return 0
+        
+    
+        
+""" FOR SANITY CHECKS PURPOSES ONLY.
+"""
 if __name__ == "__main__" :
 
     policy_data = {
@@ -59,14 +129,11 @@ if __name__ == "__main__" :
         }
     }
     
-    a = Policy_Evaluation(data,policy_data,0.5,100)
+    a = Policy_Iteration(data,policy_data,0.5,100)
 
-#    print("a.actions_list = ", a.actions_list,"\n")
-#    print("a.reward_matrix = ", a.pi_matrix,"\n")
-    print("a.pi_matrix = ", a.pi_matrix ,"\n")
-    print("reward matrix = ", a.reward_matrix, "\n")
-    print("mrp trans = ", a.MDP.get_mrp(a.Policy).transitions, "\n")
-    print("v estimate =" , a, "\n")
+    print("v : ", a.get_optimal_value_function_estimate()[0])
+    print("q : ", a.get_optimal_value_function_estimate()[1])
+    print("policy : ", a.get_optimal_value_function_estimate()[2])
     
     
     

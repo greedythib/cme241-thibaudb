@@ -1,16 +1,16 @@
 """ CONTROL : We want to find a MDP optimal policy.
-
+    Interface for VALUE ITERATION algorithm.
     For this purpose, we make an iterative application of Bellman optimality equations.
 """
 import numpy as np
 from base import DP
 
 class Value_Iteration(DP) :
-    """ Derived class of DP class to implement Policy_Iteration algorithm.
+    """ Derived class of DP class to implement Value Iteration algorithm.
     """
     
     def get_value_function_estimate(self) :
-        return "Wrong instance : object is for control (policy iteration)"
+        return "Wrong instance : object is for control (value iteration)"
     
     def get_optimal_value_function_estimate(self):
         """ Value Iteration using synchronus backups.
@@ -34,7 +34,7 @@ class Value_Iteration(DP) :
                 # We add the future contribution terms.
                 for idx, action in enumerate(self.actions_list) :
                     P_s_a = self.get_trans_matrix_on_action(action)[state-1,:]
-#
+
                     qty_to_max[idx] += self.gamma * np.dot(P_s_a, v_old)
 
                 # We need to chose the action that maximizes `qty_to_max`.
@@ -77,7 +77,8 @@ class Value_Iteration(DP) :
                 
         return opt_action_vf
         
-            
+""" FOR SANITY CHECKS PURPOSES ONLY.
+"""
 if __name__ == "__main__" :
 
     policy_data = {

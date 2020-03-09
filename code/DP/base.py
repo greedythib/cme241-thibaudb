@@ -1,10 +1,10 @@
 """ Interface for Dynamic Programming Algorithms.
-This interface is designed for Policy Evaluation, Policy Iteration, Value Iteration.
+    This interface is designed for Policy Evaluation, Policy Iteration, Value Iteration.
 """
 from abc import ABC, abstractmethod
 import numpy as np
 import sys
-sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/src/processes")
+sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/code/processes")
 from mdp import MDP
 from policy import Policy
 
@@ -26,7 +26,7 @@ class DP(ABC) :
         self.max_iter = max_iter
         self.MDP = MDP(mdp_data,gamma)
         self.actions_list = self.__get_actions_list()
-        # Policy object (cf processes/policy.py)
+        # Policy object (cf code/policy.py)
         self.Policy = Policy(policy_data)
         # Policy data in a matrix of dim (number_of_action, number_of_states)
         self.pi_matrix = self.__get_pi_matrix()
@@ -50,6 +50,9 @@ class DP(ABC) :
         
         
     def __get_pi_matrix(self) :
+        """ Method to get the Policy transition matrix.
+            It helps to vectorize the DP algorithms.
+        """
         # number of states
         n = len(self.MDP.all_states)
         # number of different actions
@@ -69,6 +72,9 @@ class DP(ABC) :
         return pi.transpose()
         
     def __get_reward_matrix(self) :
+        """ Method to get the Reward matrix.
+            it helps to vectorize the DP alogirthms.
+        """
         # number of states
         n = len(self.MDP.all_states)
         # number of different actions
@@ -88,7 +94,7 @@ class DP(ABC) :
         return R
         
     def get_trans_matrix_on_action(self, action) :
-        """ Method to retrieve the transition matrix if `action` is done for all states.
+        """ Method to retrieve the transition matrix if `action` is taken.
         """
         # number of states
         n = len(self.MDP.all_states)

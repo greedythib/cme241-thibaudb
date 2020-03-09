@@ -1,8 +1,16 @@
-from policy import Policy 
+""" Interface for deterministic policies.
+"""
+from policy import Policy
 
-class DetPolicy(Policy) : 
+class DetPolicy(Policy) :
+    """ Derived class of Policy.
+    """
     
-    def __init__(self, det_policy_data : dict) : 
+    def __init__(self, det_policy_data : dict) :
+        """ Initialization : just inherits from Policy class.
+        
+            @param    det_policy_data    dict    Classic Policy data input.
+        """
         
         Policy.__init__(self, {s: {a: 1.0} for s, a in det_policy_data.items()})
         
@@ -18,7 +26,8 @@ class DetPolicy(Policy) :
     def __str__(self) -> str:
         return self.get_state_to_action_map().__str__()
 
-    
+""" FOR SANITY CHECKS PUPOSES ONLY.
+"""
 if __name__ == "__main__" : 
     policy_data = {
             1: {'a': 0.4, 'b': 0.6},
