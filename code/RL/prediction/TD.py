@@ -1,6 +1,6 @@
 """ Temporal-Difference learning in Model-Free prediction.
 """
-from tabular import RL
+from prediction_base import RL
 
 class TD(RL) :
     """ Derived class of RL class to implemente Temporal-Difference learning in

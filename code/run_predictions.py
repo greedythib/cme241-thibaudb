@@ -1,47 +1,49 @@
 """ File for running predictions algorithms.
 """
 import sys
-sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/src/RL")
+sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/code/RL/prediction")
 from MC import MC
 from TD import TD
-sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/src/utils")
+sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/code/utils")
 from sampling import MDP_sampling
-sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/src/processes")
+sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/processes")
 from mdp import MDP
 from policy import Policy
-sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/src/DP")
+sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/code/DP")
 from policy_evaluation import Policy_Evaluation
 
 
 if __name__ == "__main__" :
 
     policy_data = {
-
-            1: {'a': 0.4, 'b': 0.6},
-            2: {'a': 0.7, 'c': 0.3},
-            3: {'a' : 0.5, 'b': 0.5}
-    }
-
+    
+                 1: {'a': 0.4, 'b': 0.6},
+                 2: {'a': 0.7, 'c': 0.3},
+                 3: {'a' : 0.5, 'b': 0.5}
+         }
+    
     data = {
-        1: {
-            'a': ({1: 0.3, 2: 0.6, 3: 0.1}, 5.0),
-            'b': ({2: 0.3, 3: 0.7}, 2.8),
-            'c': ({1: 0.2, 2: 0.4, 3: 0.4}, -7.2)
-        },
-        2: {
-            'a': ({1: 0.1, 2: 0.6, 3: 0.3}, 5.0),
-            'c': ({1: 0.2, 2: 0.6, 3: 0.2}, -7.2)
-        },
-        3: {
-            'a': ({1:0.5, 3: 0.5}, 1.0),
-            'b': ({2: 0.5, 3:0.5}, 10)
-        }
-    }
+             1: {
+                 'a': ({1: 0.3, 2: 0.6, 3: 0.1}, 5.0),
+                 'b': ({2: 0.3, 3: 0.7}, 2.8),
+                 'c': ({1: 0.2, 2: 0.4, 3: 0.4}, -7.2)
+             },
+             2: {
+                 'a': ({1: 0.1, 2: 0.6, 3: 0.3}, 5.0),
+                 'c': ({1: 0.2, 2: 0.6, 3: 0.2}, -7.2)
+             },
+             3: {
+                 'a': ({1:0.5, 3: 0.5}, 1.0),
+                 'b': ({2: 0.5, 3:0.5}, 10)
+             }
+         }
 
     max_ep_length = 100
     ep_num = 1000   # number of episodes in the sequence simulated
     gamma = 0.5       # discount factor
 
+    
+    print("-"*80)
 
     simul_data = MDP_sampling(data, policy_data, ep_num, max_ep_length ,gamma)
 

@@ -15,6 +15,7 @@ class Option_pricing(ABC):
         @param  delta_tm  float   Delta fro hedging positions
     """
     def __init__(self, S_t, K, r, sigma, delta_t):
+    
         self.S_t = S_t
         self.K = K
         self.r = r

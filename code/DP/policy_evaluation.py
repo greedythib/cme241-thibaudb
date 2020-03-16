@@ -21,6 +21,7 @@ class Policy_Evaluation(DP) :
             R_pi[i] = np.dot(self.reward_matrix[i,:], self.pi_matrix[:,i])
         # transition matrix
         trans_matrix = self.MDP.get_mrp(self.Policy).trans_matrix
+        print(trans_matrix)
         # Iterations
         for i in range(self.max_iter) :
             vk = v
@@ -67,37 +68,39 @@ class Policy_Evaluation(DP) :
 if __name__ == "__main__" :
 
     policy_data = {
-
-            1: {'a': 0.4, 'b': 0.6},
-            2: {'a': 0.7, 'c': 0.3},
-            3: {'b': 1.0}
-    }
-
+    
+                 1: {'a': 0.4, 'b': 0.6},
+                 2: {'a': 0.7, 'c': 0.3},
+                 3: {'a' : 0.5, 'b': 0.5}
+         }
+    
     data = {
-        1: {
-            'a': ({1: 0.3, 2: 0.6, 3: 0.1}, 5.0),
-            'b': ({2: 0.3, 3: 0.7}, 2.8),
-            'c': ({1: 0.2, 2: 0.4, 3: 0.4}, -7.2)
-        },
-        2: {
-            'a': ({1: 0.1, 2: 0.6, 3: 0.3}, 5.0),
-            'c': ({1: 0.2, 2: 0.4, 3: 0.4}, -7.2)
-        },
-        3: {
-            'a': ({1:0.5, 3: 0.5}, 1.0),
-            'b': ({2: 0.9, 3:0.1}, 0.0)
-        }
-    }
+             1: {
+                 'a': ({1: 0.3, 2: 0.6, 3: 0.1}, 5.0),
+                 'b': ({2: 0.3, 3: 0.7}, 2.8),
+                 'c': ({1: 0.2, 2: 0.4, 3: 0.4}, -7.2)
+             },
+             2: {
+                 'a': ({1: 0.1, 2: 0.6, 3: 0.3}, 5.0),
+                 'c': ({1: 0.2, 2: 0.6, 3: 0.2}, -7.2)
+             },
+             3: {
+                 'a': ({1:0.5, 3: 0.5}, 1.0),
+                 'b': ({2: 0.5, 3:0.5}, 10)
+             }
+         }
     
     a = Policy_Evaluation(data,policy_data,0.5,100)
 
 #    print("a.actions_list = ", a.actions_list,"\n")
 #    print("a.reward_matrix = ", a.pi_matrix,"\n")
-    print("a.pi_matrix = ", a.pi_matrix ,"\n")
-    print("reward matrix = ", a.reward_matrix, "\n")
-    print("mrp trans = ", a.MDP.get_mrp(a.Policy).transitions, "\n")
-    print("v estimate =" , a.get_value_function_estimate(), "\n")
-    print("q estimate =", a.get_action_value_function())
+#    print("a.pi_matrix = ", a.pi_matrix ,"\n")
+#    print("reward matrix = ", a.reward_matrix, "\n")
+#    print("mrp trans = ", a.MDP.get_mrp(a.Policy).transitions, "\n")
+#    print("v estimate =" , a.get_value_function_estimate(), "\n")
+#    print("q estimate =", a.get_action_value_function())
+
+    print("debug :" , a.get_trans_matrix_on_action("b"))
     
     
     

@@ -94,7 +94,9 @@ class DP(ABC) :
         return R
         
     def get_trans_matrix_on_action(self, action) :
-        """ Method to retrieve the transition matrix if `action` is taken.
+        """ Hekper method to retrieve the transition matrix if `action` is taken.
+            In other words, it gives slice of the transition tensor of all probabilities when
+            'action 1' is taken. 
         """
         # number of states
         n = len(self.MDP.all_states)

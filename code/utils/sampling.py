@@ -1,7 +1,7 @@
 """ Helper functions for manipulating MDP and RL algorithms.  
 """
 import sys
-sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/src/processes")
+sys.path.append("/Users/thibaudbruyelle/Documents/Stanford/winter2020/cme241/cme241-thibaudb-master/code/processes")
 from mdp import MDP
 import numpy as np
 from policy import Policy
