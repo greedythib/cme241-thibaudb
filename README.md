@@ -10,6 +10,10 @@ The _pdf_ files are meant to be a summary of the most important notions studied 
 * `lecture_3.pdf` sums up the most important notions from the Utility Theory lecture and the main results of the Portfolio application problems for CARA and CRRA utility functions. 
 * `RL.pdf` contains some RL theorems and properties with their proofs. 
 
+## Notebooks
+
+* `problem1.ipynb` (Merton Application problem lecture summary + code application)
+* `problem2.ipynb` (Option pricing lecture summary + code illustration)
 
 
 ## `./code` folder
