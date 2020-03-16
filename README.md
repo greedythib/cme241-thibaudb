@@ -34,11 +34,12 @@ This folder contains Python files for the implementation of Markov Processes, Ma
 
 * utils 
 
+  * Helper code for the algorithms above
+
   * `sampling.py' 
 
 Functions to generate sequence of episodes given a MDP and Policy. 
 
-  * Helper code for the algorithms above
 
 ## Type of data 
 
