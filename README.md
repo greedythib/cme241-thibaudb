@@ -22,11 +22,11 @@ This folder contains Python files for the implementation of Markov Processes, Ma
 
 * RL (Main Reinforcement Learning Algorithm)
 
-* * algorithms for prediction
+  * algorithms for prediction
 
-** algorithms for control 
+  * algorithms for control 
 
-** algorithms for value approximation (prediction only)
+  * algorithms for value approximation (prediction only)
 
 * `option_pricing.py` (code for pricing European and American options)
 
@@ -34,11 +34,11 @@ This folder contains Python files for the implementation of Markov Processes, Ma
 
 * utils 
 
-** `sampling.py' 
+  * `sampling.py' 
 
 Functions to generate sequence of episodes given a MDP and Policy. 
 
-** Helper code for the algorithms above
+  * Helper code for the algorithms above
 
 ## Type of data 
 
