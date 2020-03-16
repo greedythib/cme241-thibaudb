@@ -8,6 +8,7 @@ The _pdf_ files are meant to be a summary of the most important notions studied 
 
 * `lecture_1.pdf` sums up  the notions of Markov Chains, Value State Function and Optimal Policies studied during lecture 1.
 * `lecture_3.pdf` sums up the most important notions from the Utility Theory lecture and the main results of the Portfolio application problems for CARA and CRRA utility functions. 
+* `RL.pdf` contains some RL theorems and properties with their proofs. 
 
 ## Type of data 
 
@@ -60,9 +61,34 @@ Discrete Markov chains are implemented as Python `class`. The data that feed the
       }
 }
 ```
-## `./processes` folder
+## `./code` folder
 
-This folder contains Python files for the implementation of Markov Processes, Markov Reward Processes and Markov Decision Processes. All these processes are modelled as Python `class`. Here, the objective is to define objects that will be used in Dynamic Programming and Reinforcement Learning algorithms. The structure of these classes is incremental where `_MP_` class is the basis for all other processes. 
+* processes
+
+This folder contains Python files for the implementation of Markov Processes, Markov Reward Processes and Markov Decision Processes. All these processes are modelled as Python `class`. Here, the objective is to define objects that will be used in Dynamic Programming and Reinforcement Learning algorithms. The structure of these classes is incremental where `_MP_` class is the basis for all other processes.
+
+* DP (Main Dynamic Programming algorithms)
+
+* RL (Main Reinforcement Learning Algorithm)
+
+** algorithms for prediction
+
+** algorithms for control 
+
+** algorithms for value approximation (prediction only)
+
+* `option_pricing.py` (code for pricing European and American options)
+
+* `run_predicitions.py` (code for running predictions with DP and RL algorithms)
+
+* utils 
+
+** `sampling.py' 
+
+Functions to generate sequence of episodes given a MDP and Policy. 
+
+** Helper code for the algorithms above
+
 
 ### Usage 
 
@@ -85,6 +111,4 @@ stationary :  {1: 0.5333333333333333, 2: 0.4666666666666667}
 This folder contains a Python file `policy.py` for a Policy implementation. This class is used in the class `_MDP_`. It also contains a file `det_policy.py` used in policy improvement method (method in `MDP` objects). 
 
 
-## `./algorithms` folder
 
-Still in progress 
