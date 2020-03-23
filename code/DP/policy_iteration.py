@@ -19,7 +19,7 @@ class Policy_Iteration(DP) :
         """ Helper method to compute the argmax of the state value function with respect
             to its actions (given a state).
             
-            @param  q       dict
+            @param  v       dict
             @param  state   int
         """
         actions_list = list(v[state].keys())
