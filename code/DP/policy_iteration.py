@@ -27,7 +27,7 @@ class Policy_Iteration(DP) :
         max = v[state][arg]
         for action in actions_list :
             if v[state][action] > max :
-                max = q[state][action]
+                max = v[state][action]
                 arg = action
         return arg
       
